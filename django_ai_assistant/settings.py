@@ -66,16 +66,24 @@ WSGI_APPLICATION = 'django_ai_assistant.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': os.getenv('ENGINE'),
-        'NAME': os.getenv('NAME'),
-        'USER': 'postgres',
-        'PASSWORD': os.getenv('PASSWORD'),
-        'HOST': os.getenv('HOST'),
-        'PORT': os.getenv('PORT'),
+if os.getenv('ENGINE'):
+    DATABASES = {
+        'default': {
+            'ENGINE': os.getenv('ENGINE'),
+            'NAME': os.getenv('NAME'),
+            'USER': os.getenv('DB_USER', 'postgres'),
+            'PASSWORD': os.getenv('PASSWORD'),
+            'HOST': os.getenv('HOST', 'localhost'),
+            'PORT': os.getenv('PORT', '5432'),
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 # django_ai_db
 
 # Password validation
@@ -118,3 +126,13 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+XAI_API_KEY = os.getenv("XAI_API_KEY")
+
+AI_ASSISTANTS = {
+    "providers": {
+        "xai": {
+            "CLASS": "assistant.ai_assistant.providers.XAIProvider",
+            "api_key": XAI_API_KEY,
+        }
+    }
+}
