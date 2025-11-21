@@ -13,3 +13,11 @@ def assign_bug_to_user(bug_id:int, user_name:str):
     except User.DoesNotExist:
         return "User not found."
 
+def update_bug_status(bug_id:int, status:str):
+    try:
+        bug = Bug.objects.get(id=bug_id)
+        bug.status = status
+        bug.save()
+        return f"Bug '{bug.id}' status has been updated to '{status}'."
+    except Bug.DoesNotExist:
+        return "Bug not found."
