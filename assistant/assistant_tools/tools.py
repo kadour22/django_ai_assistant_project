@@ -31,3 +31,11 @@ def create_bug(title:str, description:str, assigned_to:str=None):
             return "Assigned user not found."
     bug = Bug.objects.create(title=title, description=description, assigned_to=user)
     return f"Bug '{bug.title}' has been created with ID '{bug.id}'."
+
+def delete_bug(bug_id:int):
+    try:
+        bug = Bug.objects.get(id=bug_id)
+        bug.delete()
+        return f"Bug '{bug.id}' has been deleted."
+    except Bug.DoesNotExist:
+        return "Bug not found."
