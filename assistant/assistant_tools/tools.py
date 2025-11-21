@@ -12,3 +12,4 @@ def assign_bug_to_user(bug_id:int, user_name:str):
         return "Bug not found."
     except User.DoesNotExist:
         return "User not found."
+
