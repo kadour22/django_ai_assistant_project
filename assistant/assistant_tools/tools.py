@@ -21,3 +21,13 @@ def update_bug_status(bug_id:int, status:str):
         return f"Bug '{bug.id}' status has been updated to '{status}'."
     except Bug.DoesNotExist:
         return "Bug not found."
+
+def create_bug(title:str, description:str, assigned_to:str=None):
+    user = None
+    if assigned_to:
+        try:
+            user = User.objects.get(username=assigned_to)
+        except User.DoesNotExist:
+            return "Assigned user not found."
+    bug = Bug.objects.create(title=title, description=description, assigned_to=user)
+    return f"Bug '{bug.title}' has been created with ID '{bug.id}'."
