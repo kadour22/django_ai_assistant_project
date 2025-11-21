@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'assistant',
+    'django_ai_assistant',
     'rest_framework'
 ]
 
@@ -77,14 +78,6 @@ if os.getenv('ENGINE'):
             'PORT': os.getenv('PORT', '5432'),
         }
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
-# django_ai_db
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -127,12 +120,3 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 XAI_API_KEY = os.getenv("XAI_API_KEY")
-
-AI_ASSISTANTS = {
-    "providers": {
-        "xai": {
-            "CLASS": "assistant.ai_assistant.providers.XAIProvider",
-            "api_key": XAI_API_KEY,
-        }
-    }
-}
