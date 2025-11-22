@@ -15,7 +15,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG')
 
 ALLOWED_HOSTS = []
 
@@ -30,7 +30,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'assistant',
-    'django_ai_assistant',
     'rest_framework'
 ]
 
@@ -120,3 +119,11 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 XAI_API_KEY = os.getenv("XAI_API_KEY")
+AI_ASSISTANT = {
+    "provider": {
+        "xai": {
+            "api_key": XAI_API_KEY,
+            "base_url": "https://api.x.ai/v1/"
+        }
+    }
+}
